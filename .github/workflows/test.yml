@@ -15,7 +15,7 @@ jobs:
       - name: Using Node js version 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: ${{14.x}}
+          node-version: 14.x
       - name: installing NPM packages
         run: npm install
       - name: Building Next js Application
