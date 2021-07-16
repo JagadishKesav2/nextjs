@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: printing Hello world
-      - run: echo "Hello World !"
+        run: echo "Hello World !"
       - name: Check the Repository files
         uses: actions/checkout@v2
       - name: Using Node js version 14.x
