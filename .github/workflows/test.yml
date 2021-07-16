@@ -9,17 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: printing Hello world
-      - run: echo "Hello World !"
+        run: echo "Hello World !"
       - name: Check the Repository files
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       - name: Using Node js version 14.x
-      - uses: actions/setup-node@v1
+        uses: actions/setup-node@v1
         with:
           node-version: ${{14.x}}
       - name: installing NPM packages
-      - run: npm install
+        run: npm install
       - name: Building Next js Application
-      - run: npm run build
-      
-        
-      
+        run: npm run build
