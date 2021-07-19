@@ -1,14 +1,15 @@
-import Head from 'next/head'
+import Head from "next/head";
+// import React from "react";
 
 const Index = () => {
-  return(
-    <> 
+  return (
+    <>
       <Head>
-        <title>Github action</title>
+        <title>Next.js 100</title>
       </Head>
-      <div>Hello World</div>
+      <div>Next.js 100</div>
     </>
-  )
-}
+  );
+};
 
 export default Index;
