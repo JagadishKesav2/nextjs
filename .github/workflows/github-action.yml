@@ -35,4 +35,5 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}  #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} #Required 
-        run: echo "get the deployed URL ${{ GITHUB_API_URL }}"
+        
+      - run: echo "get the deployed URL ${{ GITHUB_API_URL }}"
