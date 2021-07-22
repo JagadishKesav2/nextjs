@@ -25,10 +25,34 @@ jobs:
 
       - name: Deploy Next js Application to Vercel
         uses: amondnet/vercel-action@v20
+        id: vercel
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}  #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} #Required 
+          scope: ${{ secrets.VERCEL_TEAM_ID }}
+      - name: Run Lighthouse
+        uses: foo-software/lighthouse-check-action@master
+        with:
+          accessToken: ${{ secrets.GITHUB_TOKEN }}
+          prCommentEnabled: true
+          urls: ${{ steps.vercel.outputs.preview-url }} 
+
+      #     - uses: amondnet/vercel-action@v19
+      #   id: vercel
+      #   with:
+      #     vercel-token: ${{ secrets.VERCEL_TOKEN }}
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+      #     vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+      #     scope: ${{ secrets.VERCEL_TEAM_ID }}
+      # - name: Run Lighthouse
+      #   uses: foo-software/lighthouse-check-action@master
+      #   with:
+      #     accessToken: ${{ secrets.GITHUB_TOKEN }}
+      #     prCommentEnabled: true
+      #     urls: ${{ steps.vercel.outputs.preview-url }} 
 
       # - name: vercel-preview-url
       #   uses: zentered/vercel-preview-url@v1.0.0
@@ -39,33 +63,33 @@ jobs:
       #     vercel_team_id: ${{ secrets.VERCEL_ORG_ID }}
       #     vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
       # - name: Get URL
-      #   run: echo "https://${{ steps.vercel_preview_url.outputs.preview_url }}"
+      #   run: echo "https://${{ steps.vercel_preview_url.outp  uts.preview_url }}"
 
-      - name: pre-url
-        uses: aaimio/vercel-preview-url-action@master
-        id: vercel_preview_url
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: script
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'The preview URL is: ${{ steps.vercel_preview_url.outputs.vercel_preview_url }}.'
-            });
+      # - name: pre-url
+      #   uses: aaimio/vercel-preview-url-action@master
+      #   id: vercel_preview_url
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: script
+      #   uses: actions/github-script@v3
+      #   with:
+      #     github-token: ${{secrets.GITHUB_TOKEN}}
+      #     script: |
+      #       github.issues.createComment({
+      #         issue_number: context.issue.number,
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         body: 'The preview URL is: ${{ steps.vercel_preview_url.outputs.vercel_preview_url }}.'
+      #       });
 
-      - uses: actions/checkout@v2
-      - name: Audit preview URL with Lighthouse
-        id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@v3
-        with:
-          urls: |
-            https://${{ steps.vercel_preview_url.outputs.vercel_preview_url }}
-          uploadArtifacts: true
-          temporaryPublicStorage: true 
+      # - uses: actions/checkout@v2
+      # - name: Audit preview URL with Lighthouse
+      #   id: lighthouse_audit
+      #   uses: treosh/lighthouse-ci-action@v3
+      #   with:
+      #     urls: |
+      #       https://${{ steps.vercel_preview_url.outputs.vercel_preview_url }}
+      #     uploadArtifacts: true
+      #     temporaryPublicStorage: true 
 
 #github_personal id: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
