@@ -30,24 +30,24 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}  #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} #Required 
 
-      - name: vercel-preview-url
-        uses: zentered/vercel-preview-url@v1.0.0
-        id: vercel_preview_url
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        with:
-          vercel_team_id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-      - name: Get URL
-        run: echo "https://${{ steps.vercel_preview_url.outputs.preview_url }}"
+      # - name: vercel-preview-url
+      #   uses: zentered/vercel-preview-url@v1.0.0
+      #   id: vercel_preview_url
+      #   env:
+      #     VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      #   with:
+      #     vercel_team_id: ${{ secrets.VERCEL_ORG_ID }}
+      #     vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+      # - name: Get URL
+      #   run: echo "https://${{ steps.vercel_preview_url.outputs.preview_url }}"
 
       - name: pre-url
         uses: aaimio/vercel-preview-url-action@master
         id: vercel_preview_url
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/github-script@v3
+      - name: script
+        uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
