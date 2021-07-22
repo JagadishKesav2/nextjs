@@ -21,6 +21,7 @@ class MyDocument extends Document<Props> {
             content="Build a PWA with Next.js to achieve 100 lighthouse score."
           ></meta>
           <meta name="theme-color" content="#317EFB" />
+          <meta name="robots" content="noindex">
 
           <link rel="icon" href="/favicon.ico" />
           <link rel="manifest" href="/manifest.json" />
