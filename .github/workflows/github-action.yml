@@ -25,11 +25,11 @@ jobs:
 
       - name: Deploy Next js Application to Vercel
         uses: amondnet/vercel-action@v20
+        id: vercel_preview_url  
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}  #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} #Required 
-          
       - name: Get URL
         run: echo "https://${{ steps.vercel_preview_url.outputs.preview_url }}"
 
