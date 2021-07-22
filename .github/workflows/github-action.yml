@@ -25,13 +25,38 @@ jobs:
 
       - name: Deploy Next js Application to Vercel
         uses: amondnet/vercel-action@v20
-        id: vercel_preview_url  
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}  #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} #Required 
+
+      - name: vercel-preview-url
+        uses: zentered/vercel-preview-url@v1.0.0
+        id: vercel_preview_url
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        with:
+          vercel_team_id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
       - name: Get URL
         run: echo "https://${{ steps.vercel_preview_url.outputs.preview_url }}"
+
+      -name: pre-url
+      - uses: aaimio/vercel-preview-url-action@master
+        id: vercel_preview_url
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'The preview URL is: ${{ steps.vercel_preview_url.outputs.vercel_preview_url }}.'
+            });
 
       - uses: actions/checkout@v2
       - name: Audit preview URL with Lighthouse
@@ -39,7 +64,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@v3
         with:
           urls: |
-            https://${{ steps.vercel_preview_url.outputs.preview_url }}
+            https://${{ steps.vercel_preview_url.outputs.vercel_preview_url }}
           uploadArtifacts: true
           temporaryPublicStorage: true 
 
