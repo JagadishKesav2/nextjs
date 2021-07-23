@@ -24,7 +24,7 @@ jobs:
         run: npm run test
         
       - name: Deploy Next js Application to Vercel
-        if: success()
+        # if: success() # Runs only the Test is success
         uses: amondnet/vercel-action@v20
         id: vercel
         with:
@@ -35,7 +35,7 @@ jobs:
           scope: ${{ secrets.VERCEL_TEAM_ID }}
 
       - name: Run Lighthouse
-        if: success()
+        # if: success() # Runs only the Deploy is success
         uses: foo-software/lighthouse-check-action@master
         with:
           accessToken: ${{ secrets.GITHUB_TOKEN }}
