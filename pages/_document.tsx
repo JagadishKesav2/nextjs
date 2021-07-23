@@ -17,6 +17,7 @@ class MyDocument extends Document<Props> {
       <Html lang={this.props.lang}>
         <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
+        
           <meta
             name="Description"
             content="Build a PWA with Next.js to achieve 100 lighthouse score."
