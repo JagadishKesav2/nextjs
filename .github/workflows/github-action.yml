@@ -22,10 +22,6 @@ jobs:
 
       - name: Test Application
         run: npm run coverage
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1.0.6
-
         
       - name: Deploy Next js Application to Vercel
         if: success() # Runs only the Test is success
