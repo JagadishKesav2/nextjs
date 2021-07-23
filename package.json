@@ -7,7 +7,8 @@
     "build": "next build",
     "export": "next export",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --collect-coverage"
   },
   "dependencies": {
     "identity-obj-proxy": "^3.0.0",

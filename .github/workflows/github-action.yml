@@ -22,8 +22,9 @@ jobs:
 
       - name: Test Application
         run: npm run test
-
+        
       - name: Deploy Next js Application to Vercel
+        if: success()
         uses: amondnet/vercel-action@v20
         id: vercel
         with:
@@ -33,8 +34,8 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} #Required 
           scope: ${{ secrets.VERCEL_TEAM_ID }}
 
-      - run: sleep 30s
       - name: Run Lighthouse
+        if: success()
         uses: foo-software/lighthouse-check-action@master
         with:
           accessToken: ${{ secrets.GITHUB_TOKEN }}
